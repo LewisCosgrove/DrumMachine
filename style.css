@@ -50,7 +50,7 @@ body {
   margin: 2rem auto;
   display: grid;
   width: 80%;
-  grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   gap: 10px 10px;
 }
 #buttons .drum-pad {
