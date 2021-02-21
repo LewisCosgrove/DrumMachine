@@ -1,0 +1,141 @@
+const sounds = [
+{
+  key: "Q",
+  text: "Heater-1",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3",
+  keyCode: 81 },
+
+{
+  key: "W",
+  text: "Heater-2",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3",
+  keyCode: 87 },
+
+{
+  key: "E",
+  text: "Heater-3",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3",
+  keyCode: 69 },
+
+{
+  key: "A",
+  text: "Heater-4",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3",
+  keyCode: 65 },
+
+{
+  key: "S",
+  text: "Clap",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3",
+  keyCode: 83 },
+
+{
+  key: "D",
+  text: "Open-HH",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3",
+  keyCode: 68 },
+
+{
+  key: "Z",
+  text: "Kick-n'-Hat",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3",
+  keyCode: 90 },
+
+{
+  key: "X",
+  text: "Kick",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3",
+  keyCode: 88 },
+
+{
+  key: "C",
+  text: "Closed-HH",
+  mp3: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
+  keyCode: 67 }];
+
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: ". . ." };
+
+    setScreen = setScreen.bind(this);
+  }
+
+  render() {
+    return /*#__PURE__*/(
+      React.createElement("div", { id: "display", className: "" }, /*#__PURE__*/
+      React.createElement("header", null, /*#__PURE__*/
+      React.createElement("img", {
+        id: "header-img",
+        src: "https://raw.githubusercontent.com/LewisCosgrove/FCC-images/main/Roland%20logo.png",
+        alt: "" })), /*#__PURE__*/
+
+
+      React.createElement("div", { id: "screen" }, this.state.name), /*#__PURE__*/
+      React.createElement("div", { id: "buttons" },
+      sounds.map((elem, index) => /*#__PURE__*/
+      React.createElement(Box, {
+        text: elem.key,
+        key: index,
+        audio: elem.mp3,
+        desc: elem.text,
+        keyCode: elem.keyCode,
+        word: elem.text })))));
+
+
+
+
+
+  }}
+
+
+function setScreen(name) {
+  this.setState({ name: name });
+}
+
+class Box extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.playSound = this.playSound.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress);
+  }
+
+  handleKeyPress(event) {
+    if (event.keyCode === this.props.keyCode) {
+      this.playSound();
+    }
+  }
+
+  playSound() {
+    setScreen(this.props.word);
+    const play = document.getElementById(this.props.text);
+    play.currentTime = 0;
+    play.play();
+  }
+
+  render() {
+    return /*#__PURE__*/(
+      React.createElement("div", { className: "drum-pad", id: this.props.audio, onClick: this.playSound },
+      this.props.text, /*#__PURE__*/
+      React.createElement("audio", {
+        className: "clip",
+        id: this.props.text,
+        src: this.props.audio })));
+
+
+
+  }}
+
+
+ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementById("drum-machine"));
